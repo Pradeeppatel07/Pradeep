@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+.clock {
+  font-size: 24px;
+  height: 50px;
+  width: 200px;
+  background-color: #333;
+  color: white;
+  text-align: center;
+  line-height: 50px;
+}
+
+</style>
+</head>
+<body onload="startReverseTimer(10000)"> <!-- Set the initial countdown time in seconds -->
+
+<h2>Reverse Timer</h2>
+<div class="a">
+   <div id="timer" class="clock"></div>
+</div>
+
+<script>
+let countdown; // Variable to store the countdown interval
+
+function startReverseTimer(initialTimeInSeconds) {
+  let time = initialTimeInSeconds; // Set the initial countdown time in seconds
+
+  updateTimer(); // Call the updateTimer function to start updating the clock
+
+  function updateTimer() {
+    if (time >= 0) {
+      // Calculate hours, minutes, and seconds
+      const hours = Math.floor(time / 3600);
+      const minutes = Math.floor((time % 3600) / 60);
+      const seconds = time % 60;
+
+      // Display the remaining time in the clock container
+      document.getElementById('timer').innerHTML = `${hours}:${padZero(minutes)}:${padZero(seconds)}`;
+
+      time--; // Decrement the remaining time by one second
+      countdown = setTimeout(updateTimer, 1000); // Update the clock every second
+    }
+  }
+
+  function padZero(value) {
+    return value < 10 ? "0" + value : value;
+  }
+}
+
+// To stop the timer, you can call stopReverseTimer() from your code.
+function stopReverseTimer() {
+  clearTimeout(countdown); // Stop the countdown interval
+}
+</script>
+</body>
+</html>
