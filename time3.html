@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+.clock {
+  font-size: 24px;
+  height: 50px;
+  width: 200px;
+  background-color: #333;
+  color: white;
+  text-align: center;
+  line-height: 50px;
+}
+
+</style>
+</head>
+<body onload="startTimer()">
+
+<h2>Timer Clock</h2>
+<div class="a">
+   <div id="timer" class="clock"></div>
+</div>
+
+<script>
+let startTime; // Variable to store the start time
+
+function startTimer() {
+  startTime = new Date().getTime(); // Store the current time as the start time
+  updateTimer(); // Call the updateTimer function to start updating the clock
+}
+
+function updateTimer() {
+  const currentTime = new Date().getTime(); // Get the current time
+  const elapsedTime = currentTime - startTime; // Calculate the elapsed time in milliseconds
+
+  // Calculate hours, minutes, and seconds
+  const hours = Math.floor(elapsedTime / 3600000);
+  const minutes = Math.floor((elapsedTime % 3600000) / 60000);
+  const seconds = Math.floor((elapsedTime % 60000) / 1000);
+
+  // Display the elapsed time in the clock container
+  document.getElementById('timer').innerHTML = `${hours}:${padZero(minutes)}:${padZero(seconds)}`;
+
+  setTimeout(updateTimer, 1000); // Update the clock every second
+}
+
+function padZero(value) {
+  return value < 10 ? "0" + value : value;
+}
+</script>
+</body>
+</html>
